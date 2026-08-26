@@ -9,7 +9,7 @@
 <header class="topbar"><div><p class="eyebrow">3 小時教師實作工作坊</p><h1>AI 輔助教材轉譯</h1><p class="subtitle">不用先學會 AI 名詞。跟著 8 關，把一課教材整理成可教、可填、可檢查的學習材料。</p></div><div class="top-actions"><div class="mode-switch"><button class="mode-btn active" data-mode="learner">學員模式</button><button class="mode-btn" data-mode="instructor">講師模式</button></div><button id="exportNotes" class="btn">匯出研習紀錄</button><button id="resetAll" class="btn subtle">重設</button></div></header>
 <nav class="main-nav" aria-label="主導覽"><button data-view-target="home">首頁</button><button data-view-target="a">版本 A｜AI 協作備課</button><button data-view-target="b">版本 B｜批次自動化</button><button data-view-target="results">成果</button></nav>
 <section class="dashboard"><div class="progress-card"><div class="progress-head"><div><span class="label">全課進度</span><strong id="progressText">0%</strong></div><span id="missionCount">0 / 8 關</span></div><div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100"><div id="bar"></div></div></div><div class="current-card"><span class="label">目前所在關卡</span><strong id="currentMission">關卡 0</strong><span id="suggestedTime">建議 10 分鐘</span></div><div class="timer-card"><span class="label">本關計時器</span><strong id="timer">00:00</strong><div><button id="timerStart">開始</button><button id="timerPause">暫停</button><button id="timerReset">歸零</button></div></div></section>
-<nav class="mission-nav a-nav"><a href="#m0">A0 今日任務</a><a href="#m1">A1 教材來源</a><a href="#m2">A2 理解教材</a><a href="#m3">A3 重組教學</a><a href="#m4">A4 教學轉譯</a><a href="#m5">A5 心智圖內容</a><a href="#m6">A6 檢查定稿</a><a href="#success-template">成功樣板</a></nav>
+<nav class="mission-nav a-nav"><a href="#m0">A0 今日任務</a><a href="#m1">A1 教材來源</a><a href="#m2">A2 理解教材</a><a href="#m3">A3 重組教學</a><a href="#m4">A4 教學轉譯</a><a href="#m5">A5 心智圖內容</a><a href="#m6">A6 檢查定稿</a><a href="#m7">A7 心智圖成品</a><a href="#success-template">成功樣板</a></nav>
 <nav class="mission-nav b-nav"><a href="#b0">B0 自動化</a><a href="#b1">B1 專案資料夾</a><a href="#b2">B2 Skill</a><a href="#b3">B3 放入教材</a><a href="#b4">B4 批次指令</a><a href="#b5">B5 執行流程</a><a href="#b6">B6 查看成果</a><a href="#b7">B7 教師驗收</a></nav>
 <main>
 <section class="welcome" data-view="home"><p class="eyebrow dark">兩條清楚的學習路徑</p><h2>先學會一起做，再讓 AI 幫你重複做。</h2><div class="version-cards"><article><span class="recommend">第一次使用建議從這裡開始</span><h3>版本 A｜AI 協作備課</h3><h4>NotebookLM + ChatGPT</h4><p>適合第一次使用這套流程的教師。跟著 AI 完成教材理解、知識重組、教學轉譯與填空心智圖設計。</p><div class="mini-flow">教材 → NotebookLM → 三部分 → ChatGPT → 心智圖 → 教師定稿</div><strong id="homeProgressA">完成度 0%</strong><button data-view-target="a">開始 AI 協作備課</button></article><article><span class="recommend muted">建議完整走過版本 A</span><h3>版本 B｜批次自動化</h3><h4>Codex + Skill</h4><p>適合已知道教材格式，或已完成版本 A 的教師。讓 Codex 依固定 Skill 自動處理多課教材。</p><div class="mini-flow">教材資料夾 → Codex → Skill → 分析 → 排版 → PDF → QA</div><strong id="homeProgressB">完成度 0%</strong><button data-view-target="b">進入批次自動化</button></article></div><div class="version-relation"><b>版本 A：AI 協助老師思考</b><b>版本 B：AI 按照老師的方法執行</b></div><div class="plain-note"><strong>本站不會上傳教材，也不呼叫 AI API。</strong>所有 Prompt 由老師自行複製到對應工具。</div></section>
@@ -39,7 +39,7 @@
 <div class="prompt"><div class="prompt-head"><strong>教材核心 Prompt（NotebookLM）</strong><button class="copy" data-target="p2">複製 Prompt</button></div><pre id="p2">請只根據本課教材整理：1. 課名與核心問題；2. 學生學完最需要理解或做到的事；3. 3～5 個主要重點；4. 核心概念、關鍵詞與教材例子；5. 各重點的來源位置或核對線索。不要依頁面順序摘要；沒有明確提供的內容標示「教材未明確提供」。</pre></div>
 <div class="judgement"><h3>老師需要人工判斷</h3><p>核心問題是否符合課綱與班級需求；重點是否真的值得教。</p></div><div class="activity"><h3>過關條件</h3><label><input class="task-check" type="checkbox"> 已取得核心問題與 3～5 個重點。</label><label><input class="task-check" type="checkbox"> 已核對至少三項來源。</label><label><input class="task-check" type="checkbox"> 已標記疑點。</label></div><div class="result-box"><h3>本關成果</h3><p>經教師核對的教材分析。</p><textarea data-note="m2" placeholder="核心問題、主要重點、關鍵詞與例子…"></textarea></div><div class="instructor-only"><h3>講師提醒</h3><p><b>示範：</b>教材與回答並排核對。<br><b>卡關：</b>若只得到摘要，追問學生真正要理解的關係。</p></div></section>
 
-<section class="mission version-a" id="m3" data-view="a" data-version="A" data-mission="3" data-time="25" data-title="重新組織教學">
+<section class="mission version-a" id="m3" data-view="a" data-version="A" data-mission="3" data-time="20" data-title="重新組織教學">
 <div class="mission-title"><div><span class="mission-no">關卡 3｜建議 25 分鐘</span><h2>重組三個教學部分</h2></div><label class="complete"><input class="mission-check" type="checkbox"> 完成本關</label></div>
 <div class="mission-grid"><article><h3>本關目標</h3><p>把教材重點排成學生容易理解的三部分。</p></article><article><h3>老師現在要做什麼</h3><p>選擇知識邏輯，命名三部分並說明關係。</p></article></div>
 <div class="steps"><div><b>01</b><p><strong>選邏輯</strong><br>因果、順序、比較等。</p></div><div><b>02</b><p><strong>分三部分</strong><br>各有一個任務。</p></div><div><b>03</b><p><strong>檢查連接</strong><br>說明學習順序。</p></div></div><div class="chips"><span>時間發展</span><span>因果關係</span><span>問題→解決</span><span>原因→過程→結果</span></div>
@@ -51,7 +51,7 @@
 
 <section class="break"><strong>休息 10 分鐘</strong><span>回來後，把「教材正確」轉成「學生看得懂」。</span></section>
 
-<section class="mission featured version-a" id="m4" data-view="a" data-version="A" data-mission="4" data-time="30" data-title="教學轉譯">
+<section class="mission featured version-a" id="m4" data-view="a" data-version="A" data-mission="4" data-time="25" data-title="教學轉譯">
 <div class="mission-title"><div><span class="mission-no">關卡 4｜建議 30 分鐘</span><h2>ChatGPT 教學轉譯</h2></div><label class="complete"><input class="mission-check" type="checkbox"> 完成本關</label></div>
 <div class="mission-grid"><article><h3>本關目標</h3><p>不改變知識，改成學生易懂的語言。</p></article><article><h3>老師現在要做什麼</h3><p>貼 NotebookLM 結果、送完整 Prompt、人工檢查，再至少追問一次。</p></article></div>
 <div class="transfer-box"><h3>從 NotebookLM 複製哪些內容？</h3><ol><li>課名與核心問題</li><li>經核對的 3～5 個主要重點</li><li>三個教學部分的標題、概念、重點與教材例子</li><li>三部分先後關係</li><li>「教材未明確提供」與待確認處</li></ol><p>不要只貼摘要，也不要貼不必要的學生個資。</p></div>
@@ -75,7 +75,7 @@
 修正後再次列出「需要老師確認」清單。</pre></div>
 <div class="decision-fields"><label>我這次要求 ChatGPT 修改的是：<textarea data-note="m4request" placeholder="例如：部分二用詞太抽象，請改成短句…"></textarea></label><label>最後我決定保留的版本／理由：<textarea data-note="m4decision" placeholder="記下採用版本與教師判斷理由…"></textarea></label></div><div class="judgement"><h3>老師需要人工判斷</h3><p>逐句查正確性、難度、關係與教材外資訊。<strong>ChatGPT 提供草稿；教師決定定稿。</strong></p></div><div class="activity"><h3>過關條件</h3><label><input class="task-check" type="checkbox"> 已完整貼入指定內容。</label><label><input class="task-check" type="checkbox"> 已人工檢查第一次回答。</label><label><input class="task-check" type="checkbox"> 已至少追問一次。</label><label><input class="task-check" type="checkbox"> 已由我決定最後版本。</label></div><div class="result-box"><h3>本關成果</h3><p>經追問、檢查與定稿的學生版教學語言。</p><textarea data-note="m4" placeholder="最後採用版本或修正重點…"></textarea></div><div class="instructor-only"><h3>講師提醒</h3><p><b>示範：</b>找出過難句或教材外資訊並追問。<br><b>卡關：</b>第一次回答不是定稿，追問後才能過關。</p></div></section>
 
-<section class="mission version-a" id="m5" data-view="a" data-version="A" data-mission="5" data-time="30" data-title="設計學生填空心智圖內容">
+<section class="mission version-a" id="m5" data-view="a" data-version="A" data-mission="5" data-time="25" data-title="設計學生填空心智圖內容">
 <div class="mission-title"><div><span class="mission-no">關卡 5｜建議 30 分鐘</span><h2>設計學生填空心智圖內容</h2><p class="mission-subtitle">這一關先決定心智圖裡要放什麼，不先處理美術排版。</p></div><label class="complete"><input class="mission-check" type="checkbox"> 完成本關</label></div>
 <div class="mission-grid"><article><h3>本關目標</h3><p>做出能從教材或脈絡推論的填空架構。</p></article><article><h3>老師現在要做什麼</h3><p>把關卡 4 定稿貼給 ChatGPT，產生學生版與答案表。</p></article></div>
 <div class="steps"><div><b>01</b><p><strong>貼定稿</strong><br>只用確認版本。</p></div><div><b>02</b><p><strong>產生填空</strong><br>8～12 格並編號。</p></div><div><b>03</b><p><strong>試填</strong><br>遮答案走一次。</p></div></div>
@@ -86,7 +86,7 @@
 
 <section class="break"><strong>休息 10 分鐘</strong><span>最後，站回教師角色檢查與定稿。</span></section>
 
-<section class="mission version-a" id="m6" data-view="a" data-version="A" data-mission="6" data-time="20" data-title="教師檢查與定稿">
+<section class="mission version-a" id="m6" data-view="a" data-version="A" data-mission="6" data-time="15" data-title="教師檢查與定稿">
 <div class="mission-title"><div><span class="mission-no">關卡 6｜建議 20 分鐘</span><h2>教師檢查與定稿</h2></div><label class="complete"><input class="mission-check" type="checkbox"> 完成本關</label></div>
 <div class="mission-grid"><article><h3>本關目標</h3><p>確認來源、結構、語言、填空與答案一致。</p></article><article><h3>老師現在要做什麼</h3><p>用同一份檢核順序逐項檢查，親自完成定稿。</p></article></div>
 <div class="steps"><div><b>01</b><p><strong>查來源</strong><br>重要內容回到教材。</p></div><div><b>02</b><p><strong>查教學</strong><br>難度、順序適合。</p></div><div><b>03</b><p><strong>查一致</strong><br>學生版、答案版相符。</p></div></div>
@@ -108,6 +108,45 @@
 
 【貼上 A、B、C 三份內容】</pre></div>
 <div class="plain-note"><strong>角色分工：</strong>AI 只負責找疑點；老師負責決定與修改。</div><div class="judgement"><h3>老師需要人工判斷</h3><p>正確性、適齡性、敏感內容、答案接受範圍與課堂可行性。</p></div><div class="activity"><h3>過關條件</h3><label><input class="task-check" type="checkbox"> 重要內容可回到教材。</label><label><input class="task-check" type="checkbox"> 三部分、學生版、教師版對應。</label><label><input class="task-check" type="checkbox"> 已人工修改並定稿。</label></div><div class="result-box"><h3>本關成果</h3><p>學生版、教師答案版與教師檢查定稿。</p><textarea data-note="m6" placeholder="最後修改、待確認與教學提醒…"></textarea></div><div class="instructor-only"><h3>講師提醒</h3><p><b>示範：</b>AI 列疑點，老師做決定。<br><b>卡關：</b>不只看錯字，還要查來源、結構、語言、答案。</p></div></section>
+
+<section class="break" data-view="a"><strong>休息 10 分鐘</strong><span>最後，用同一份定稿內容產生兩種心智圖，再由老師做專業選擇。</span></section>
+
+<section class="mission version-a featured" id="m7" data-view="a" data-version="A" data-mission="7" data-time="30" data-title="產生填空心智圖成品">
+<div class="mission-title"><div><span class="mission-no">A7｜建議 30 分鐘</span><h2>把內容真的變成「填空心智圖成品」</h2><p class="mission-subtitle">A5 決定心智圖裡放什麼；A7 才把定稿內容轉成真正可看的成果。</p></div><label class="complete"><input class="mission-check" type="checkbox"> 完成本關</label></div>
+<div class="dual-tool-guide"><div><span>本關工具 A</span><h3>ChatGPT</h3><p>把已完成的填空內容轉成視覺化心智圖。</p><a class="tool-button" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">開啟 ChatGPT ↗</a></div><div><span>本關工具 B</span><h3>NotebookLM</h3><p>依同一份教材來源與定稿內容，建立另一個視覺化版本。</p><a class="tool-button" href="https://notebooklm.google.com/" target="_blank" rel="noopener noreferrer">開啟 NotebookLM ↗</a></div></div>
+<div class="plain-note"><strong>比較原則：</strong>ChatGPT 與 NotebookLM 必須使用同一份定稿內容，才有比較意義。</div>
+<div class="operation"><h3>Step 1｜準備同一份定稿內容</h3><div class="check-columns"><span>課名與核心問題</span><span>三個教學部分</span><span>各部分核心概念</span><span>2～4 個次要重點</span><span>教材例子</span><span>B01～B12 填空</span><span>教師答案表</span><span>三題「想一想」</span></div><label><input class="task-check" type="checkbox"> 我已準備 A6 的同一份定稿內容。</label></div>
+<div class="prompt"><div class="prompt-head"><strong>Step 2｜ChatGPT 心智圖 Prompt</strong><button class="copy" data-target="pA7Chat">複製 Prompt</button></div><pre id="pA7Chat">以下是一份已完成教師檢查的教材內容。請不要重新分析教材，也不要新增內容。
+
+請將它設計成一張「學生版填空心智圖」。
+
+要求：
+1. 中心放課名與核心問題。
+2. 從中心向外延伸三個主要分支，對應原本三個教學部分。
+3. 每個分支包含學生版標題、核心概念、2～4 個次要重點、教材例子、關鍵詞與一句統整句。
+4. 保留原本 B01、B02、B03……填空位置。
+5. 不顯示教師答案。
+6. 一眼可看出三大分支；不要塞入過多文字；使用短句與箭頭表現知識關係。
+7. 設計為 A4 橫式、黑白列印清楚、適合國中生閱讀、不依賴顏色理解。
+8. 可加入簡單線條圖示，但不要讓裝飾干擾內容。
+9. 先輸出：A. 心智圖版面規劃；B. 完整學生版內容；C. 若支援圖片生成，再產生圖像版。
+
+以下是我的定稿內容：
+【貼上 A6 定稿】</pre></div>
+<div class="activity"><h3>Step 3｜老師檢查 ChatGPT 版本</h3><label><input class="task-check" type="checkbox"> 中心主題與三條分支清楚。</label><label><input class="task-check" type="checkbox"> 填空位置保留且沒有露答案。</label><label><input class="task-check" type="checkbox"> 沒有加入新知識，文字量適合。</label><label><input class="task-check" type="checkbox"> 黑白列印仍可理解。</label></div>
+<div class="prompt followup"><div class="prompt-head"><strong>ChatGPT 修正追問</strong><button class="copy" data-target="pA7Follow">複製追問</button></div><pre id="pA7Follow">這張心智圖的文字太多。請不要刪除核心概念、教材例子與填空，把每個節點控制在 15 字以內。三條主要分支必須維持清楚，並保留原本 B01～B12 的填空位置。</pre></div>
+<div class="prompt"><div class="prompt-head"><strong>Step 4｜NotebookLM 心智圖 Prompt</strong><button class="copy" data-target="pA7Notebook">複製 Prompt</button></div><pre id="pA7Notebook">請根據目前 Notebook 中的教材來源，以及我提供的已定稿內容，整理成一份「學生版填空心智圖」。請完全依據教材來源，不要加入教材未提供的資訊。
+
+要求：中心為課名＋核心問題；三個主要分支對應原本三個教學部分；各分支包含核心概念、2～4 個重要重點、教材例子、關鍵詞與統整句；保留 B01～B12 填空且不顯示答案；優先呈現因果、順序、比較與分類；內容簡短，適合學生閱讀與筆記。若可產生視覺化心智圖，請以 A4 橫式、黑白列印友善為原則。
+
+以下是已定稿內容：
+【貼上 A6 定稿】</pre></div>
+<div class="comparison-wrap"><h3>Step 5｜兩個版本並排比較</h3><table class="comparison-table"><thead><tr><th>比較項目</th><th>ChatGPT</th><th>NotebookLM</th></tr></thead><tbody><tr><td>三大分支清楚</td><td><input class="task-check" type="checkbox" aria-label="ChatGPT 三大分支清楚"></td><td><input class="task-check" type="checkbox" aria-label="NotebookLM 三大分支清楚"></td></tr><tr><td>教材依據穩定</td><td><input class="task-check" type="checkbox" aria-label="ChatGPT 教材依據穩定"></td><td><input class="task-check" type="checkbox" aria-label="NotebookLM 教材依據穩定"></td></tr><tr><td>填空位置合理</td><td><input class="task-check" type="checkbox" aria-label="ChatGPT 填空位置合理"></td><td><input class="task-check" type="checkbox" aria-label="NotebookLM 填空位置合理"></td></tr><tr><td>版面容易閱讀</td><td><input class="task-check" type="checkbox" aria-label="ChatGPT 版面容易閱讀"></td><td><input class="task-check" type="checkbox" aria-label="NotebookLM 版面容易閱讀"></td></tr><tr><td>沒有教材外資訊</td><td><input class="task-check" type="checkbox" aria-label="ChatGPT 沒有教材外資訊"></td><td><input class="task-check" type="checkbox" aria-label="NotebookLM 沒有教材外資訊"></td></tr><tr><td>適合黑白列印</td><td><input class="task-check" type="checkbox" aria-label="ChatGPT 適合黑白列印"></td><td><input class="task-check" type="checkbox" aria-label="NotebookLM 適合黑白列印"></td></tr></tbody></table></div>
+<fieldset class="final-choice"><legend>我最後想採用</legend><label><input type="radio" name="a7choice" data-choice="ChatGPT 版本"> ChatGPT 版本</label><label><input type="radio" name="a7choice" data-choice="NotebookLM 版本"> NotebookLM 版本</label><label><input type="radio" name="a7choice" data-choice="兩者混合後再修改"> 兩者混合後再修改</label></fieldset>
+<div class="judgement"><h3>Step 6｜教師完成最後定稿</h3><p><strong>不是哪個 AI 比較厲害，而是哪一個版本最符合你的學生與教學目的。</strong></p><p>可採用其中一版、取兩邊優點、再請 ChatGPT 修改，或進入 Codex 固定格式輸出。</p></div>
+<div class="result-box"><h3>本關成果</h3><p>① ChatGPT 填空心智圖版本　② NotebookLM 版本　③ 比較紀錄　④ 教師選定最終版本</p><textarea data-note="m7comparison" placeholder="記下兩版差異、選擇與最後修改…"></textarea></div>
+<div class="activity"><h3>過關條件</h3><label><input class="task-check" type="checkbox"> 已取得 ChatGPT 版本。</label><label><input class="task-check" type="checkbox"> 已取得 NotebookLM 版本。</label><label><input class="task-check" type="checkbox"> 已完成比較並選定最終版本。</label></div>
+<div class="instructor-only"><h3>講師提醒</h3><p>確認兩工具使用同一份內容；重點不是競賽，而是教師依學生需求做選擇。</p></div></section>
 
 <section class="success-template" id="success-template" data-view="a"><p class="eyebrow dark">版本 A 完成</p><h2>我的成功樣板</h2><p>你已經知道這套流程為什麼這樣設計，也建立了一套固定方法：</p><div class="template-list"><span>1. 教材怎麼分析</span><span>2. 核心問題怎麼找</span><span>3. 三部分怎麼重組</span><span>4. 學生語言怎麼改寫</span><span>5. 填空怎麼選</span><span>6. 答案怎麼建立</span><span>7. 教材如何檢查</span><span>8. 版面希望怎麼呈現</span></div><div class="plain-note"><strong>版本 B 不是重新發明流程，</strong>而是把版本 A 成功的方法交給 Codex 重複執行。</div><button class="btn primary" data-view-target="b">把這套方法帶到批次自動化</button></section>
 
