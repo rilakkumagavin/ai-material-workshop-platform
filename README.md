@@ -2,6 +2,8 @@
 
 純前端、可直接部署至 GitHub Pages 的教師研習平台。網站包含兩條清楚路徑：先在版本 A 與 AI 一起完成一課，再在版本 B 把成功方法交給 Codex 批次執行。
 
+開始前可先閱讀 `project-folders.html`：「02｜專案資料夾與 Skill 放置規則」。此頁用教師容易理解的方式說明 `materials/`、`.skills/`、`templates/`、`workspace/`、`output/` 與 `README.md` 的用途，並解釋為什麼每個 Skill 需要自己的子資料夾。
+
 ## 兩個教學模式
 
 ### A｜AI 協作備課：NotebookLM + ChatGPT

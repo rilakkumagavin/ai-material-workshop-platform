@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="教師容易理解的 AI 教材工作流專案資料夾與 Skill 放置規則">
+  <title>02｜專案資料夾與 Skill 放置規則</title><link rel="icon" href="data:,"><link rel="stylesheet" href="./styles.css">
+</head>
+<body class="lesson-page">
+<header class="topbar lesson-topbar"><div><p class="eyebrow">開始前準備｜工作流說明</p><h1>02｜專案資料夾與 Skill 放置規則</h1><p class="subtitle">先把教材、方法、版型、過程與成果分開放，AI 才知道去哪裡找資料。</p></div><a class="btn" href="./index.html">← 回到研習平台</a></header>
+<nav class="lesson-nav" aria-label="本頁導覽"><a href="#overview">整體概念</a><a href="#tree">資料夾結構</a><a href="#folders">用途說明</a><a href="#skill-room">Skill 子資料夾</a><a href="#skill-rules">放置規則</a><a href="#memory">快速記憶</a></nav>
+<main class="lesson-main">
+<section class="lesson-intro" id="overview"><p class="eyebrow dark">先看懂整體流程</p><h2>一個專案資料夾，就是一間整理清楚的教材工作室</h2><p class="lead">本工作流使用 <code>ai-material-workflow</code> 作為教材分析與圖片心智圖生成的專案資料夾。</p><div class="folder-flow"><span><b>教材放進來</b><small>materials</small></span><i>→</i><span><b>AI 依規則處理</b><small>.skills</small></span><i>→</i><span><b>套用版型與 Prompt</b><small>templates</small></span><i>→</i><span><b>保存中間成果</b><small>workspace</small></span><i>→</i><span><b>輸出成品</b><small>output</small></span></div><p class="plain-note"><strong>整體概念：</strong>教材放進來 → AI 依照 Skill 規則處理 → 套用版型與 Prompt → 產生中間成果 → 輸出學生版心智圖、PDF 與檢查報告。</p></section>
+
+<section class="lesson-section" id="tree"><p class="eyebrow dark">完整資料夾結構</p><h2>先記住六個位置</h2><div class="folder-tree folder-tree-large"><pre>ai-material-workflow/
+├── materials/                         放原始教材
+├── .skills/                           放 AI 要遵守的方法
+│   └── analyze-learning-material/
+│       └── SKILL.md                   教材分析 Skill 主規則
+├── templates/                         放心智圖、PDF、圖片版型與 Prompt 模板
+├── workspace/                         放中間過程資料
+├── output/                            放最後成果
+└── README.md                          專案使用說明</pre></div></section>
+
+<section class="lesson-section" id="folders"><p class="eyebrow dark">資料夾用途說明</p><h2>每一種檔案，都有自己的位置</h2><div class="folder-cards">
+<article class="folder-card"><span class="folder-number">1</span><h3><code>materials/</code>：放原始教材</h3><p>放還沒有被 AI 整理過的教材來源。</p><div class="folder-card-columns"><div><h4>可以放入</h4><ul><li>課本、教師手冊 PDF</li><li>習作、補充教材、課程簡報</li><li>圖片教材與老師整理的重點</li><li>NotebookLM 要參考的原始資料</li></ul></div><div><h4>不建議放入</h4><ul><li>最後心智圖或圖片成品</li><li>學生版 PDF、教師答案版</li><li>檢查報告</li></ul></div></div><details><summary>範例</summary><pre>materials/
+├── 第4課_課本.pdf
+├── 第4課_教師手冊.pdf
+├── 第5課_課本.pdf
+├── 第5課_教師手冊.pdf
+└── 補充資料.md</pre></details><p class="memory-line"><strong>一句話記法：</strong>放「還沒整理過的教材來源」</p></article>
+
+<article class="folder-card skill-card"><span class="folder-number">2</span><h3><code>.skills/</code>：放 AI 要遵守的方法</h3><p>它不是教材或成果，而是放「AI 要怎麼做」的規則。</p><div class="folder-card-columns"><div><h4>可以放入（SKILL.md 會告訴 AI）</h4><ul><li>如何分析教材、重組三大部分</li><li>如何提出 C 候選並篩選正式 B 填空</li><li>如何整理圖片底稿與限制清單</li><li>避免新增教材外內容</li><li>避免把檢查表或參考圖當教材</li></ul></div><div><h4>不建議放入</h4><ul><li>課本與教師手冊 PDF</li><li>學生學習單、心智圖、最終 PDF</li><li>每一課的輸出成果</li></ul></div></div><details open><summary>本專案主要 Skill</summary><pre>.skills/
+└── analyze-learning-material/
+    └── SKILL.md</pre></details><p class="memory-line"><strong>一句話記法：</strong>放「AI 的操作規則」</p></article>
+
+<article class="folder-card"><span class="folder-number">3</span><h3><code>templates/</code>：放心智圖與圖片版型</h3><p>放版面參考與 Prompt 模板，告訴 AI 成果要怎麼呈現。</p><div class="folder-card-columns"><div><h4>可以放入</h4><ul><li>A4 橫式黑白心智圖參考圖</li><li>三區塊學習地圖與 NotebookLM 版型圖</li><li>圖片生成 Prompt、PDF 設定</li><li>學生版學習單參考樣式</li></ul></div><div><h4>不建議放入</h4><ul><li>原始教材</li><li>每課最後成品</li><li>學生或教師正式答案</li></ul></div></div><details><summary>範例</summary><pre>templates/
+├── A4橫式_三區塊學習地圖.png
+├── 黑白填空心智圖_參考圖.png
+├── stage4_prompt_template.md
+├── image_generation_prompt.md
+└── pdf_export_style.md</pre></details><p class="memory-line"><strong>一句話記法：</strong>放「長得像什麼」與「要怎麼生成」</p></article>
+
+<article class="folder-card"><span class="folder-number">4</span><h3><code>workspace/</code>：放中間過程資料</h3><p>這些資料還不是最後成果，但會接著交給下一關使用。</p><div class="folder-card-columns"><div><h4>可以放入</h4><ul><li>關卡三 NotebookLM 成果</li><li>自動產生的下一關 Prompt</li><li>C 候選與 B 正式填空</li><li>圖片底稿、限制清單與流程狀態 JSON</li></ul></div><div><h4>不建議放入</h4><ul><li>原始教材</li><li>最終 PNG、PDF</li><li>Skill 規則</li></ul></div></div><details><summary>範例</summary><pre>workspace/
+├── stage3_notebooklm_result.md
+├── stage4_candidate_prompt.md
+├── stage4_candidate_blanks.md
+├── chatgpt_translation_prompt.md
+├── selected_blanks_B.md
+├── stage5_image_draft.md
+├── stage6_image_restrictions.md
+└── workflow_state.json</pre></details><p class="memory-line"><strong>一句話記法：</strong>放「做到一半的資料」</p></article>
+
+<article class="folder-card"><span class="folder-number">5</span><h3><code>output/</code>：放最後成果</h3><p>放已經可以交付、檢查或列印給老師與學生使用的檔案。</p><div class="folder-card-columns"><div><h4>可以放入</h4><ul><li>教材分析、學生版填空、教師答案</li><li>圖片底稿與限制清單</li><li>心智圖 PNG、PDF 與檢查報告</li></ul></div><div><h4>不建議放入</h4><ul><li>原始教材或 Skill 規則</li><li>Prompt 模板與版型參考圖</li></ul></div></div><details><summary>範例</summary><pre>output/
+├── 第4課/
+│   ├── 教材分析文字版.md
+│   ├── 學生版填空內容.md
+│   ├── 教師答案版.md
+│   ├── 圖片生成用底稿.md
+│   ├── 圖片生成限制清單.md
+│   ├── 學生版心智圖.png
+│   ├── 學生版心智圖.pdf
+│   └── 檢查報告.md
+├── 第5課/
+└── 第6課/</pre></details><p class="memory-line"><strong>一句話記法：</strong>放「最後可以交付或列印的成果」</p></article>
+
+<article class="folder-card"><span class="folder-number">6</span><h3><code>README.md</code>：放專案使用說明</h3><p>給老師或開發者看的專案導覽。</p><div class="folder-card-columns"><div><h4>可以放入（可寫入）</h4><ul><li>專案與各資料夾用途</li><li>教材、版型、成果要放哪裡</li><li>Codex 使用哪個 Skill</li><li>流程 A 與流程 B 說明</li></ul></div><div><h4>不建議放入</h4><ul><li>整份教材正文</li><li>每課的大量中間成果</li><li>學生個人資料</li></ul></div></div><p class="memory-line"><strong>一句話記法：</strong>放「整個專案怎麼使用」</p></article>
+</div></section>
+
+<section class="lesson-section skill-room" id="skill-room"><p class="eyebrow dark">重點說明</p><h2>為什麼需要 <code>analyze-learning-material/</code> 這個子資料夾？</h2><p><code>.skills/</code> 是所有 AI Skill 的總資料夾；<code>analyze-learning-material/</code> 是教材分析 Skill 的專屬資料夾；<code>SKILL.md</code> 是這個 Skill 的主要說明檔。</p><div class="skill-metaphor"><span><b>.skills/</b><small>技能總資料夾</small></span><i>→</i><span><b>analyze-learning-material/</b><small>教材分析技能的專屬房間</small></span><i>→</i><span><b>SKILL.md</b><small>這個技能的使用說明書</small></span></div><div class="compare"><article class="bad"><h3>不建議</h3><pre>.skills/
+└── SKILL.md</pre><p>未來增加第二個 Skill 時，名稱、Prompt、範例與 Schema 容易混在一起。</p></article><article class="good"><h3>建議</h3><pre>.skills/
+└── analyze-learning-material/
+    └── SKILL.md</pre><p>每個 Skill 有自己的名稱與空間，比較容易維護與擴充。</p></article></div><h3>未來進階版可能變成</h3><div class="folder-tree"><pre>.skills/
+├── analyze-learning-material/
+│   └── SKILL.md
+├── build-next-stage-prompt/
+│   └── SKILL.md
+├── translate-fill-blanks/
+│   └── SKILL.md
+├── generate-image-worksheet/
+│   └── SKILL.md
+└── validate-learning-output/
+    └── SKILL.md</pre></div><p class="plain-note"><strong>第一版不用一開始拆太細。</strong>先保留主 Skill：<code>.skills/analyze-learning-material/SKILL.md</code>。等流程穩定後，再拆成多個子 Skill。</p></section>
+
+<section class="lesson-section" id="skill-rules"><p class="eyebrow dark">.skills/ 裡面的放置規則</p><h2>四個簡單規則</h2><div class="rule-grid"><article><b>規則一</b><h3>每個 Skill 都是一個子資料夾</h3><pre>.skills/
+└── skill-name/
+    └── SKILL.md</pre></article><article><b>規則二</b><h3>一定要有 SKILL.md</h3><p>它是入口檔，說明名稱、使用時機、流程、限制、輸入輸出與完成標準。</p></article><article><b>規則三</b><h3>使用英文小寫與連字號</h3><p><strong>建議：</strong><code>analyze-learning-material</code>、<code>generate-mindmap-image</code>、<code>validate-learning-output</code></p><p><strong>不建議：</strong>中文、空格、大寫名稱或底線。</p></article><article><b>規則四</b><h3>只放同一 Skill 的相關內容</h3><p>不要把其他技能、原始教材或每課輸出混進來。</p></article></div><div class="compare"><article><h3>第一版先簡化</h3><pre>.skills/analyze-learning-material/
+└── SKILL.md</pre></article><article><h3>穩定後再拆分</h3><pre>.skills/analyze-learning-material/
+├── SKILL.md
+├── prompts/
+│   ├── stage4_prompt.md
+│   ├── translation_prompt.md
+│   └── image_generation_prompt.md
+├── examples/
+│   ├── stage3_example.md
+│   └── stage4_example.md
+└── schema/
+    └── learning-analysis.schema.json</pre></article></div></section>
+
+<section class="lesson-section" id="memory"><p class="eyebrow dark">快速記憶表</p><h2>忘記時，看這張表就好</h2><div class="memory-table-wrap"><table class="memory-table"><thead><tr><th>資料夾</th><th>用途</th></tr></thead><tbody><tr><td><code>materials/</code></td><td>放原始教材</td></tr><tr><td><code>.skills/</code></td><td>放 AI 要遵守的方法</td></tr><tr><td><code>templates/</code></td><td>放心智圖、PDF、圖片版型與 Prompt 模板</td></tr><tr><td><code>workspace/</code></td><td>放中間過程資料</td></tr><tr><td><code>output/</code></td><td>放最後成果</td></tr><tr><td><code>README.md</code></td><td>放專案使用說明</td></tr></tbody></table></div><p class="quote">materials 是來源，workspace 是過程，output 是成果；.skills 決定 AI 怎麼做，templates 決定成果長什麼樣子。</p><a class="lesson-back" href="./index.html">← 我看懂了，回到研習平台</a></section>
+</main><footer>AI 輔助教材轉譯研習互動平台｜開始前準備</footer>
+</body></html>
