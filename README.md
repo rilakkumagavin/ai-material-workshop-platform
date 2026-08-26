@@ -43,6 +43,28 @@ ai-material-workflow/
 └─ output/                         批次成果
 ```
 
+## 新版內容定稿與圖片生成工作流
+
+流程 A 現在是「NotebookLM 內容定稿流程」：
+
+1. 上傳教材到 NotebookLM。
+2. 逐課教材分析。
+3. 產出三大教學部分。
+4. NotebookLM 產生 `C01`、`C02`、`C03`……候選填空。
+5. ChatGPT 依教材重點、學生理解需求與版面可讀性篩選正式填空，重編為 `B01`、`B02`、`B03`……。
+6. 整理圖片生成用底稿。
+7. 整理圖片生成限制清單。
+8. 交給流程 B 產生正式圖片。
+
+總原則：
+
+- 填空數量不得寫死。6～12 題只是一般建議，內容較少可以更少，內容較多則應提出拆頁建議。
+- NotebookLM 只提出 C 編號候選；正式 B 編號只能在 ChatGPT 篩選階段產生。
+- 圖片生成只負責視覺整合與版面表現，不重新分析教材，也不得新增、刪除或更換正式 B 編號。
+- 檢查表、排版限制、避錯規則、修正意見與版型參考圖都不是教材正文。
+
+Skill 位於 `.skills/analyze-learning-materials/`。型別與驗證規則位於 `src/learningAnalysisSchema.ts`、`src/validate-material-grounding.ts`。
+
 本網站不會自動建立或上傳這些資料夾；老師需在自己的 Codex 工作環境準備。若已有 `.skills/analyze-learning-materials/SKILL.md`，可直接使用，不要求新手現場自己撰寫。
 
 ## 啟動批次工作流
