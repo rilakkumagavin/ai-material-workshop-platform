@@ -1,68 +1,88 @@
 # AI 輔助教材轉譯｜教師研習互動平台
 
-純前端、可直接部署至 GitHub Pages 的 3 小時教師研習網站。主要使用者是第一次接觸 NotebookLM、很少使用 ChatGPT、不了解 Codex Skill 的老師。
+純前端、可直接部署至 GitHub Pages 的教師研習平台。網站包含兩條清楚路徑：先在版本 A 與 AI 一起完成一課，再在版本 B 把成功方法交給 Codex 批次執行。
 
-## 課程定位
+## 兩個教學模式
 
-網站不重新設計課程內容，也不教 JSON。它帶老師使用自己的單課教材走完固定流程：
+### A｜AI 協作備課：NotebookLM + ChatGPT
 
-教材 → 確認來源 → 找出教學核心 → 重組三個教學部分 → ChatGPT 教學轉譯 → 填空心智圖 → 教師檢查定稿 → 理解 Codex Skill
+適合第一次使用流程的教師，定位是「AI 協助老師備課與理解教材」。
 
-## 8 個關卡
+- A0 今天要完成什麼
+- A1 建立教材來源
+- A2 理解教材
+- A3 重新組織教學
+- A4 教學轉譯
+- A5 設計學生填空心智圖內容
+- A6 教師檢查與定稿
+- 完成後建立「我的成功樣板」
 
-1. 關卡 0：理解工作流（10 分鐘）
-2. 關卡 1：上傳教材（15 分鐘）
-3. 關卡 2：找出這一課真正要教什麼（20 分鐘）
-4. 關卡 3：重組三個教學部分（25 分鐘）
-5. 休息（10 分鐘）
-6. 關卡 4：ChatGPT 教學轉譯（30 分鐘）
-7. 關卡 5：學生填空心智圖（30 分鐘）
-8. 休息（10 分鐘）
-9. 關卡 6：教師檢查與定稿（20 分鐘）
-10. 關卡 7：Codex Skill 概念（10 分鐘）
+### B｜批次自動化：Codex + Skill
 
-合計 180 分鐘。
+適合已完成版本 A，或已知道教材格式的教師，定位是「把成熟的教材轉譯方法批次化」。
 
-每一關均包含：本關目標、老師現在要做什麼、操作步驟、可複製 Prompt、人工判斷項目、過關條件、本關成果；講師模式會額外顯示示範重點與常見卡關。
+- B0 理解自動化
+- B1 建立 Codex 專案資料夾
+- B2 準備 Skill
+- B3 放入教材
+- B4 一句指令開始批次處理
+- B5 自動執行流程
+- B6 查看批次成果
+- B7 教師批次驗收
 
-## 互動功能
+## Codex 專案目錄
 
-- 學員模式／講師模式前端介面切換；密碼只用來避免誤觸，不是安全權限控制
-- 每關統一顯示本關工具、用途、開啟按鈕及 ChatGPT／NotebookLM／Codex 狀態
-- 每關底部顯示下一步要攜帶的資料、切換工具與預期任務
-- 目前關卡、上一關／下一關、建議時間與全課進度
-- 勾選完成後自動前往下一關
-- Prompt 一鍵複製
-- `localStorage` 自動保存關卡、檢核、輸入、三個教學部分、筆記、模式與目前關卡
-- 自動遷移舊版 `ai-workshop-platform-v1` 的既有資料
-- 六項成果驗收
-- Markdown 研習紀錄匯出
-- 桌機、iPad 與手機響應式版面
-- 無 API Key、無外部 AI API、無後端
+```text
+ai-material-workflow/
+├─ materials/                      原始教材
+├─ .skills/
+│  └─ analyze-learning-materials/
+│     └─ SKILL.md                  固定工作方法
+├─ templates/                      心智圖與 PDF 版型
+└─ output/                         批次成果
+```
 
-> 教材檔案不會上傳到本網站。老師需自行將 Prompt 複製到 NotebookLM、ChatGPT 或 Codex。所有 AI 產出都必須由教師人工確認。
+本網站不會自動建立或上傳這些資料夾；老師需在自己的 Codex 工作環境準備。若已有 `.skills/analyze-learning-materials/SKILL.md`，可直接使用，不要求新手現場自己撰寫。
 
-## 講師模式密碼
+## 啟動批次工作流
 
-預設講師密碼為 `teacher2026`。研習前可在 `script.js` 頂端修改 `INSTRUCTOR_PASSWORD`。
+1. 在 Codex 專案建立上述資料夾。
+2. 把原始教材放進 `materials/`。
+3. 確認 Skill 位於 `.skills/analyze-learning-materials/SKILL.md`。
+4. 在網站 B3 輸入起訖課次。
+5. 複製 B4 指令並貼到自己的 Codex 工作環境。
+6. 從 `output/lesson-XX/` 檢查 PDF、答案與檢查報告。
+7. 由教師完成 B7 批次驗收。
 
-此為前端介面切換，不是安全權限控制。密碼驗證只在瀏覽器前端執行，僅用來避免學員誤觸講師提示。驗證成功後，同一瀏覽器分頁工作階段重新整理不必再次輸入；關閉工作階段後需重新驗證。網站不會把密碼寫入 localStorage。
+## 資料保存
 
-## GitHub Pages 部署
+網站使用 `localStorage`，版本 A 與 B 的關卡進度分開保存：
 
-本專案只使用相對路徑 `./styles.css` 與 `./script.js`，不依賴根目錄絕對路徑，適合部署於 GitHub Pages 的專案子路徑。
+- `missionsA`：A0–A6
+- `missionsB`：B0–B7
+- `tasksA`／`tasksB`：兩版檢核
+- `fields`／`notes`：任務卡、三部分、課次與筆記
+- `dynamicLessons`：依起訖課次產生的批次驗收
 
-1. 將 `index.html`、`styles.css`、`script.js`、`README.md` 放在 repository 根目錄。
-2. 推送至 GitHub 的 `main` branch。
-3. 開啟 Repository → **Settings** → **Pages**。
-4. Source 選 **Deploy from a branch**。
-5. Branch 選 `main`，Folder 選 `/ (root)`，按 **Save**。
+舊版 `ai-workshop-platform-v2` 資料會自動遷移至版本 A。Markdown 匯出同時包含 A／B 進度與批次驗收。
 
-不需要建置指令或環境變數。若改用 GitHub Actions，也只需發佈這四個靜態檔案。
+## 講師模式
+
+兩個版本均支援講師提示。預設介面切換密碼設定於 `script.js` 的 `INSTRUCTOR_PASSWORD`。
+
+此為前端介面切換，只用來避免誤觸，**不是安全權限控制**；沒有帳號系統或後端驗證。
+
+## GitHub Pages
+
+專案只使用相對路徑 `./styles.css`、`./script.js`，不需要建置指令、API Key、AI API 或後端。
+
+1. 將 `index.html`、`styles.css`、`script.js`、`README.md` 推送至 `main`。
+2. Repository → Settings → Pages。
+3. 選 `Deploy from a branch`、`main`、`/ (root)`。
+
+公開版：<https://rilakkumagavin.github.io/ai-material-workshop-platform/>
 
 ## 本機測試
-
-可直接開啟 `index.html`。若要以和 GitHub Pages 更接近的 HTTP 環境測試：
 
 ```powershell
 python -m http.server 8000
@@ -70,9 +90,10 @@ python -m http.server 8000
 
 瀏覽 `http://localhost:8000/`。
 
-## 檔案
+## 限制
 
-- `index.html`：8 關內容、首頁時間軸、成果驗收與操作介面
-- `styles.css`：視覺樣式、雙模式、桌機／平板／手機版面
-- `script.js`：保存、進度、導覽、複製、計時、匯出與舊資料遷移
-- `README.md`：使用與部署說明
+- 不教 JSON
+- 不使用 API Key 或外部 AI API
+- 不含後端、帳號、資料庫、OCR 或多人協作
+- 不會自動把教材上傳到第三方平台
+- 所有 AI 產出仍須由教師人工檢查
