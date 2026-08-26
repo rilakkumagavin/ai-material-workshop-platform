@@ -9,6 +9,43 @@ const INSTRUCTOR_SESSION='ai-workshop-instructor-unlocked';
 const missions=$$('.mission');
 let currentIndex=0;
 
+const TOOL_URLS={ChatGPT:'https://chatgpt.com/',NotebookLM:'https://notebooklm.google.com/'};
+const TOOL_GUIDES=[
+  {active:'ChatGPT',purpose:'透過簡單對話確認年級、科目、課次與今日教學目標。',states:{ChatGPT:'● 使用中｜確認今日任務',NotebookLM:'○ 稍後使用',Codex:'○ 最後體驗'}},
+  {active:'NotebookLM',purpose:'建立教材來源。',states:{ChatGPT:'✓ 今日任務已確認',NotebookLM:'● 使用中｜建立教材來源',Codex:'○ 最後體驗'}},
+  {active:'NotebookLM',purpose:'找出教材核心問題、主要重點與教材例子。',states:{ChatGPT:'✓ 今日任務已確認',NotebookLM:'● 使用中｜找出教材核心',Codex:'○ 最後體驗'}},
+  {active:'NotebookLM',purpose:'重組三個教學部分。',states:{ChatGPT:'✓ 今日任務已確認',NotebookLM:'● 使用中｜重組三部分',Codex:'○ 最後體驗'}},
+  {active:'ChatGPT',purpose:'把已確認的教材內容轉成學生容易理解的語言。',states:{ChatGPT:'● 使用中｜教學轉譯',NotebookLM:'✓ 教材分析已完成',Codex:'○ 最後體驗'}},
+  {active:'ChatGPT',purpose:'設計填空心智圖內容架構與教師答案。',states:{ChatGPT:'● 使用中｜設計內容',NotebookLM:'✓ 教材分析已完成',Codex:'○ 最後體驗'}},
+  {active:'ChatGPT + 教師',buttonTool:'ChatGPT',purpose:'AI 協助找問題；教師完成最終判斷。',states:{ChatGPT:'● 使用中｜協助找疑點',NotebookLM:'✓ 教材分析已完成',Codex:'○ 最後體驗'}},
+  {active:'Codex',purpose:'理解如何保存今天成功的工作流程。',states:{ChatGPT:'✓ 教學材料已完成',NotebookLM:'✓ 教材分析已完成',Codex:'● 使用中｜理解 Skill'}}
+];
+const NEXT_STEPS=[
+  '帶著今日任務卡，切換到 NotebookLM，開始建立教材來源。',
+  '留在 NotebookLM，只根據已確認的來源找出這一課真正要教什麼。',
+  '帶著已核對的教材重點，在 NotebookLM 重組三個教學部分。',
+  '帶著 NotebookLM 的分析結果，切換到 ChatGPT，把教師語言轉成學生語言。',
+  '把教師定稿留在 ChatGPT，接著設計填空心智圖的內容架構與答案。',
+  '站回教師角色，檢查這份教材能不能真的給學生使用。',
+  '整理今天重複使用的步驟，理解 Codex Skill 如何保存成功方法。',
+  '前往成果驗收，確認今天完成的六項教材轉譯成果。'
+];
+
+function toolButton(tool){
+  const url=TOOL_URLS[tool];
+  return url?`<a class="tool-button" href="${url}" target="_blank" rel="noopener noreferrer">開啟 ${tool} ↗</a>`:'<span class="tool-button codex-button" role="note">開啟你的 Codex 工作環境</span>';
+}
+function renderGuides(){
+  missions.forEach((mission,index)=>{
+    const guide=TOOL_GUIDES[index],buttonTool=guide.buttonTool||guide.active;
+    const statuses=Object.entries(guide.states).map(([tool,status])=>`<div><strong>${tool}</strong><span>${status}</span></div>`).join('');
+    mission.querySelector('.mission-title').insertAdjacentHTML('afterend',`<section class="tool-guide" aria-label="本關使用工具"><div class="tool-guide-main"><span class="label">本關使用工具</span><h3>${guide.active}</h3><p>${guide.purpose}</p>${toolButton(buttonTool)}</div><div class="tool-status">${statuses}</div></section>`);
+    const instructor=mission.querySelector('.instructor-only');
+    instructor.insertAdjacentHTML('beforebegin',`<section class="next-step"><span>下一步你會做什麼？</span><p>${NEXT_STEPS[index]}</p></section>`);
+  });
+}
+renderGuides();
+
 function getState(){
   try{return JSON.parse(localStorage.getItem(STORAGE))||{}}catch{return {}}
 }
@@ -123,8 +160,8 @@ $('#timerReset').addEventListener('click',()=>{clearInterval(timerId);timerId=nu
 
 $('#resetAll').addEventListener('click',()=>{if(confirm('確定清除全部研習進度、輸入與筆記？此動作無法復原。')){localStorage.removeItem(STORAGE);sessionStorage.removeItem(INSTRUCTOR_SESSION);location.reload()}});
 function exportMarkdown(){
-  const s=collectState(),titles=missions.map(x=>x.dataset.title),lines=['# AI 輔助教材轉譯｜我的研習紀錄','',`- 匯出時間：${new Date().toLocaleString('zh-TW')}`,'', '## 關卡完成狀態',...titles.map((title,i)=>`- [${s.missions[i]?'x':' '}] 關卡 ${i}：${title}`),'','## 三個教學部分',`- 部分一：${s.fields.mod1||''}`,s.notes.mod1d||'',`- 部分二：${s.fields.mod2||''}`,s.notes.mod2d||'',`- 部分三：${s.fields.mod3||''}`,s.notes.mod3d||'',`- 三者關係：${s.notes.m3relation||''}`,''];
-  const noteTitles={m0:'實作範圍',m1:'上傳與來源',m2:'教材分析',m4:'學生版教學語言',m5:'填空心智圖',m6:'教師檢查定稿',m7:'Skill 流程草案',final:'研習後行動'};
+  const s=collectState(),titles=missions.map(x=>x.dataset.title),lines=['# AI 輔助教材轉譯｜我的研習紀錄','',`- 匯出時間：${new Date().toLocaleString('zh-TW')}`,'','## 今日備課任務卡',`- 任教年級：${s.fields.grade||''}`,`- 科目：${s.fields.subject||''}`,`- 課次／單元：${s.fields.lesson||''}`,`- 希望學生理解或做到：${s.notes.learningGoal||''}`,'', '## 關卡完成狀態',...titles.map((title,i)=>`- [${s.missions[i]?'x':' '}] 關卡 ${i}：${title}`),'','## 三個教學部分',`- 部分一：${s.fields.mod1||''}`,s.notes.mod1d||'',`- 部分二：${s.fields.mod2||''}`,s.notes.mod2d||'',`- 部分三：${s.fields.mod3||''}`,s.notes.mod3d||'',`- 三者關係：${s.notes.m3relation||''}`,''];
+  const noteTitles={m0:'實作範圍',m1:'上傳與來源',m2:'教材分析',m4:'學生版教學語言',m4request:'ChatGPT 追問修改要求',m4decision:'教師採用版本與理由',m5:'填空心智圖內容稿',m6:'教師檢查定稿',m7:'Skill 流程草案',final:'研習後行動'};
   Object.entries(noteTitles).forEach(([key,title])=>lines.push(`## ${title}`,s.notes[key]||'',''));
   lines.push('## 成果驗收',...$$('.result-check').map((x,i)=>`- [${x.checked?'x':' '}] ${x.parentElement.textContent.trim()}`));
   const blob=new Blob([lines.join('\n')],{type:'text/markdown;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='我的AI教材轉譯研習紀錄.md';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);toast('研習紀錄已匯出');
